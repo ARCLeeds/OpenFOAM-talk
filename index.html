@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+  <section>
+    <h3>OpenFOAM on HPC</h3>
+  </section>
+  <section>
+    <h3>Issues with OpenFOAM on HPC</h3>
+    <section>
+      <ul>
+        <li>It hasn't been properly designed with HPC in mind</li>
+        <li>It lacks support for an established HPC suitable file format</li>
+        <li>It both underperforms and causes other jobs to underperform</li>
+      </ul>
+    </section>
+    <section>
+      <h4>What's different about HPC?</h4>
+      <ul>
+      <li>The /nobackup filesystem</li>
+      <li>Leeds is not unique in this regard</li>
+    </section>
+    <section>
+      <h4>Views from elsewhere</h4>
+    </section>
+    <section>
+      <h4>ARCHER</h4>
+      <p>/work is a Lustre file system. Lustre is optimised for reading and writing small numbers of large files (Configuring the Lustre /work file system:</p>
+      <p>opening and closing large numbers of files can be slow large numbers of processes reading or writing files can contend for access to the file system</p>
+    </section>
+    <section>
+      <h4>hpc.dtu.dk</h4>
+      <p>OpenFOAM produces a lot of small files during the computation, and with a peculiar hierarchy of directories. During a single simulations, many thousands small files are created, read and written, and this puts a lot of pressure on the filesystem, potentially causing substantial performance degradation, and affecting the whole cluster.</p>
+    </section>
+    <section>
+      <h4>Micronanoflows</h4>
+      <p>OpenFOAM is well known and well acknowedged as a very flexible and stable environment to develop new solvers, however it has a bit of a reputation for scaling badly on big super computers, leaving people to assume it should only be used when your problem can be tackled by a stand-alone workstation or using only a few nodes on your favourite big HPC system.</p>
+    </section>
+    <section>
+      <h4>University of Ghent</h4>
+      <p>OpenFOAM is known to significantly stress shared filesystems, since a lot of (small) files are generated during an OpenFOAM simulation. Shared filesystems are typically optimised for dealing with (a small number of) large files, and are usually a poor match for workloads that involve a (very) large number of small files.</p>
+    </section>
+    <section>
+      <h4>University of Leeds</h4>
+        <p>A single OpenFOAM user has exceeded one hundred million files/directories on a filesystem ill suited to large numbers of files and directories.</h2>
+    </section>
+  </section>
+
+  <section>
+    <h3>Mitigations</h3>
+    <section>
+      <p>Use binary format for the fields</p>
+      <code>writeFormat binary</code>
+    </section>
+    <section>
+      <p>For steady-state solutions, overwrite the output at each output time:</p>
+      <code>purgeWrite 1</code>
+    </section>
+    <section>
+      <p>Don't read dictionaries at every time-step</p>
+      <code>runTimeModifiable no</code>
+    </section>
+    <section>
+      <p>Reduce the checkpoint frequency</p>
+      <code>writeControl / writeInterval</code>
+    </section>
+    <section>
+      <p>Avoid very small time step</p>
+      <p>Synchroisation and log file entry written per time step</p>
+    </section>
+    <section>
+      <p>Use newer features, such as collated file format (OpenFOAM >= 5.0)</p>
+      <p>Can reduce file count by a factor of 40</p>
+      <p>Figures from ARCHER show an actual performance boost of 50%<p>
+    </section>
+    <section>
+      <p>If the results per individual time step are large, consider:</p>
+      <code>writeCompression on</code>
+    </section>
+    <section>
+      <p>For single node OpenFOAM jobs, consider using the local filesystem</p>
+      <code>/local</code>
+      <p>Notes for this are on the <a href="https://arc.leeds.ac.uk/using-the-systems/why-have-a-scheduler/tmp-and-scratch/">ARC website</a></p>
+    </section>
+  </section>
+
+<section>
+  <h3>What is ARC4?</h3>
+  <section>
+    <h4>In the current guise, it's ARC3 but faster</h4>
+  </section>
+  <section>
+    <ul>
+      <li>1.2 Petabytes of Lustre storage ~11Gbytes/sec</li>
+      <li>Infiniband EDR 100Gbit networking</li>
+      <li>Xeon Gold 6138 CPU (Sky Lake)</li>
+      <li>149 standard nodes (40 cores, 192Gbytes RAM)</li>
+      <li>2 high memory nodes (40 cores, 768Gbytes RAM)</li>
+      <li>3 GPU nodes (4 x Nvidia V100)</li>
+    </ul>
+  </section>
+  <section>
+    <h4>Software</h4>
+    <p>A subset of what's been installed on ARC3</p>
+    <p>More modules can be installed on request</p>
+    <p>Does not contain python-libs from ARC3</p>
+  </section>
+</section>
+
+<section>
+  <h3>Who's paid for what</h3>
+  <ul>
+    <li>In a sense, not that imporant</li>
+    <li>Stakeholder agreement</li>
+    <li>Each faculty paid a sum they chose</li>
+  </ul>
+</section>
+
+<section>
+  <p>General discussion with OF users</p>
+  <p>Contact the Research Computing team:</p>
+  <p> <a href="https://bit.ly/arc-help">https://bit.ly/arc-help</a></p>
+</section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
