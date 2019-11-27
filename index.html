@@ -47,25 +47,25 @@
       <h4>Views from elsewhere</h4>
     </section>
     <section>
-      <h4>ARCHER</h4>
+      <h4><a href="https://www.archer.ac.uk/documentation/software/openfoam/">ARCHER</a></h4>
       <p>/work is a Lustre file system. Lustre is optimised for reading and writing small numbers of large files (Configuring the Lustre /work file system:</p>
       <p>opening and closing large numbers of files can be slow large numbers of processes reading or writing files can contend for access to the file system</p>
     </section>
     <section>
-      <h4>hpc.dtu.dk</h4>
+      <h4><a href="https://www.hpc.dtu.dk/?page_id=1024">hpc.dtu.dk</a></h4>
       <p>OpenFOAM produces a lot of small files during the computation, and with a peculiar hierarchy of directories. During a single simulations, many thousands small files are created, read and written, and this puts a lot of pressure on the filesystem, potentially causing substantial performance degradation, and affecting the whole cluster.</p>
     </section>
     <section>
-      <h4>Micronanoflows</h4>
+      <h4><a href="https://www.micronanoflows.ac.uk/openfoams-io-problem-and-solution/">Micronanoflows</a></h4>
       <p>OpenFOAM is well known and well acknowedged as a very flexible and stable environment to develop new solvers, however it has a bit of a reputation for scaling badly on big super computers, leaving people to assume it should only be used when your problem can be tackled by a stand-alone workstation or using only a few nodes on your favourite big HPC system.</p>
     </section>
     <section>
-      <h4>University of Ghent</h4>
+      <h4><a href="http://hpcugent.github.io/vsc_user_docs/pdf/intro-HPC-windows-gent.pdf">University of Ghent</a></h4>
       <p>OpenFOAM is known to significantly stress shared filesystems, since a lot of (small) files are generated during an OpenFOAM simulation. Shared filesystems are typically optimised for dealing with (a small number of) large files, and are usually a poor match for workloads that involve a (very) large number of small files.</p>
     </section>
     <section>
       <h4>University of Leeds</h4>
-        <p>A single OpenFOAM user has exceeded one hundred million files/directories on a filesystem ill suited to large numbers of files and directories.</h2>
+        <p>A single OpenFOAM user has exceeded one hundred million files/directories on a filesystem ill suited to large numbers of files and directories.</p>
     </section>
   </section>
 
@@ -89,10 +89,10 @@
     </section>
     <section>
       <p>Avoid very small time step</p>
-      <p>Synchroisation and log file entry written per time step</p>
+      <p>Synchronisation and log file entry written per time step</p>
     </section>
     <section>
-      <p>Use newer features, such as collated file format (OpenFOAM >= 5.0)</p>
+      <p>Use newer features, such as collated file format (OpenFOAM &amp;= 5.0)</p>
       <p>Can reduce file count by a factor of 40</p>
       <p>Figures from ARCHER show an actual performance boost of 50%<p>
     </section>
