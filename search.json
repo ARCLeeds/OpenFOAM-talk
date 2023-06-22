@@ -1,0 +1,128 @@
+[
+  {
+    "objectID": "index.html#whats-different-about-hpc",
+    "href": "index.html#whats-different-about-hpc",
+    "title": "Test OpenFOAM talk",
+    "section": "What’s different about HPC?",
+    "text": "What’s different about HPC?\n\nThe /nobackup filesystem\nLeeds is not unique in this regard"
+  },
+  {
+    "objectID": "index.html#views-from-elsewhere",
+    "href": "index.html#views-from-elsewhere",
+    "title": "Test OpenFOAM talk",
+    "section": "Views from elsewhere",
+    "text": "Views from elsewhere"
+  },
+  {
+    "objectID": "index.html#archer",
+    "href": "index.html#archer",
+    "title": "Test OpenFOAM talk",
+    "section": "ARCHER",
+    "text": "ARCHER\n/work is a Lustre file system. Lustre is optimised for reading and writing small numbers of large files (Configuring the Lustre /work file system: opening and closing large numbers of files can be slow large numbers of processes reading or writing files can contend for access to the file system"
+  },
+  {
+    "objectID": "index.html#hpc.dtu.dk",
+    "href": "index.html#hpc.dtu.dk",
+    "title": "Test OpenFOAM talk",
+    "section": "hpc.dtu.dk",
+    "text": "hpc.dtu.dk\nOpenFOAM produces a lot of small files during the computation, and with a peculiar hierarchy of directories. During a single simulations, many thousands small files are created, read and written, and this puts a lot of pressure on the filesystem, potentially causing substantial performance degradation, and affecting the whole cluster."
+  },
+  {
+    "objectID": "index.html#micronanoflows",
+    "href": "index.html#micronanoflows",
+    "title": "Test OpenFOAM talk",
+    "section": "Micronanoflows",
+    "text": "Micronanoflows\nOpenFOAM is well known and well acknowedged as a very flexible and stable environment to develop new solvers, however it has a bit of a reputation for scaling badly on big super computers, leaving people to assume it should only be used when your problem can be tackled by a stand-alone workstation or using only a few nodes on your favourite big HPC system."
+  },
+  {
+    "objectID": "index.html#university-of-ghent",
+    "href": "index.html#university-of-ghent",
+    "title": "Test OpenFOAM talk",
+    "section": "University of Ghent",
+    "text": "University of Ghent\nOpenFOAM is known to significantly stress shared filesystems, since a lot of (small) files are generated during an OpenFOAM simulation. Shared filesystems are typically optimised for dealing with (a small number of) large files, and are usually a poor match for workloads that involve a (very) large number of small files."
+  },
+  {
+    "objectID": "index.html#university-of-leeds",
+    "href": "index.html#university-of-leeds",
+    "title": "Test OpenFOAM talk",
+    "section": "University of Leeds",
+    "text": "University of Leeds\nA single OpenFOAM user has exceeded one hundred million files/directories on a filesystem ill suited to large numbers of files and directories."
+  },
+  {
+    "objectID": "index.html#use-binary-format-for-the-fields",
+    "href": "index.html#use-binary-format-for-the-fields",
+    "title": "Test OpenFOAM talk",
+    "section": "Use binary format for the fields",
+    "text": "Use binary format for the fields\nwriteFormat binary"
+  },
+  {
+    "objectID": "index.html#for-steady-state-solutions-overwrite-the-output-at-each-output-time",
+    "href": "index.html#for-steady-state-solutions-overwrite-the-output-at-each-output-time",
+    "title": "Test OpenFOAM talk",
+    "section": "For steady-state solutions, overwrite the output at each output time",
+    "text": "For steady-state solutions, overwrite the output at each output time\npurgeWrite 1"
+  },
+  {
+    "objectID": "index.html#dont-read-dictionaries-at-every-time-step",
+    "href": "index.html#dont-read-dictionaries-at-every-time-step",
+    "title": "Test OpenFOAM talk",
+    "section": "Don’t read dictionaries at every time-step",
+    "text": "Don’t read dictionaries at every time-step\nrunTimeModifiable no"
+  },
+  {
+    "objectID": "index.html#reduce-the-checkpoint-frequency",
+    "href": "index.html#reduce-the-checkpoint-frequency",
+    "title": "Test OpenFOAM talk",
+    "section": "Reduce the checkpoint frequency",
+    "text": "Reduce the checkpoint frequency\nwriteControl / writeInterval"
+  },
+  {
+    "objectID": "index.html#avoid-very-small-time-step",
+    "href": "index.html#avoid-very-small-time-step",
+    "title": "Test OpenFOAM talk",
+    "section": "Avoid very small time step",
+    "text": "Avoid very small time step\nSynchronisation and log file entry written per time step deltaT"
+  },
+  {
+    "objectID": "index.html#use-newer-features-such-as-collated-file-format-openfoam-5.0",
+    "href": "index.html#use-newer-features-such-as-collated-file-format-openfoam-5.0",
+    "title": "Test OpenFOAM talk",
+    "section": "Use newer features, such as collated file format (OpenFOAM >= 5.0)",
+    "text": "Use newer features, such as collated file format (OpenFOAM &gt;= 5.0)\nCan reduce file count by a factor of 40\nFigures from ARCHER show an actual performance boost of 50%\nOriginal 2017 blog post"
+  },
+  {
+    "objectID": "index.html#if-the-results-per-individual-time-step-are-large-consider",
+    "href": "index.html#if-the-results-per-individual-time-step-are-large-consider",
+    "title": "Test OpenFOAM talk",
+    "section": "If the results per individual time step are large, consider:",
+    "text": "If the results per individual time step are large, consider:\nwriteCompression on"
+  },
+  {
+    "objectID": "index.html#for-single-node-openfoam-jobs-consider-using-the-local-filesystem",
+    "href": "index.html#for-single-node-openfoam-jobs-consider-using-the-local-filesystem",
+    "title": "Test OpenFOAM talk",
+    "section": "For single node OpenFOAM jobs, consider using the local filesystem",
+    "text": "For single node OpenFOAM jobs, consider using the local filesystem\n/local\nNotes for this are on the ARC website"
+  },
+  {
+    "objectID": "index.html#software",
+    "href": "index.html#software",
+    "title": "Test OpenFOAM talk",
+    "section": "Software",
+    "text": "Software\n\nA subset of what’s been installed on ARC3\nMore modules can be installed on request\nDoes not contain python-libs from ARC3"
+  },
+  {
+    "objectID": "index.html#whos-paid-for-what",
+    "href": "index.html#whos-paid-for-what",
+    "title": "Test OpenFOAM talk",
+    "section": "Who’s paid for what",
+    "text": "Who’s paid for what\n\nIn a sense, not that imporant\nStakeholder agreement\nEach faculty paid a sum they chose"
+  },
+  {
+    "objectID": "index.html#thank-you",
+    "href": "index.html#thank-you",
+    "title": "Test OpenFOAM talk",
+    "section": "Thank you",
+    "text": "Thank you\nIf you have any questions or would like to learn more about Research Computing, please do not hesitate to get in touch with us.\n\n\n\nWe are always here to assist you!\n\nContact via IT Service Desk: https://bit.ly/arc-help\nSee our Website: https://arc.leeds.ac.uk/\nHPC documentation: https://arcdocs.leeds.ac.uk\n\n\n\nResearch IT Website | Research IT Query"
+  }
+]
