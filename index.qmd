@@ -1,0 +1,124 @@
+---
+format:
+  clean-revealjs:
+    self-contained: true
+    navigation-mode: linear
+    controls-layout: bottom-right
+    controls: false
+    footer: "[Research IT Website]({{< var rc.website >}}) | [Research IT Query]({{< var rc.servicedesk >}})"
+    slide-number: true
+    sc-sb-title: true
+    section-divs: true
+filters: 
+  - reveal-header
+name: OpenFOAM on HPC
+---
+
+{{< include _title.qmd >}}
+
+# Overview
+
+- Issues with OpenFOAM on HPC
+- Mitigations
+- ARC4
+- General Discussion
+
+# Issues with OpenFOAM on HPC
+
+- It hasn't been properly designed with HPC in mind
+- It lacks support for an established HPC suitable file format
+- It both underperforms and causes other jobs to underperform
+
+## What's different about HPC?
+
+- The /nobackup filesystem
+- Leeds is not unique in this regard
+
+## Views from elsewhere
+
+## [ARCHER](https://www.archer.ac.uk/documentation/software/openfoam/")
+/work is a Lustre file system. Lustre is optimised for reading and writing
+small numbers of large files (Configuring the Lustre /work file system: opening
+and closing large numbers of files can be slow large numbers of processes
+reading or writing files can contend for access to the file system
+		
+## [hpc.dtu.dk](https://www.hpc.dtu.dk/?page_id=1024)
+OpenFOAM produces a lot of small files during the computation, and with a
+peculiar hierarchy of directories. During a single simulations, many thousands
+small files are created, read and written, and this puts a lot of pressure on
+the filesystem, potentially causing substantial performance degradation, and
+affecting the whole cluster.
+
+## [Micronanoflows](https://www.micronanoflows.ac.uk/openfoams-io-problem-and-solution/)
+OpenFOAM is well known and well acknowedged as a very flexible and stable
+environment to develop new solvers, however it has a bit of a reputation for
+scaling badly on big super computers, leaving people to assume it should only
+be used when your problem can be tackled by a stand-alone workstation or using
+only a few nodes on your favourite big HPC system.
+
+## [University of Ghent](http://hpcugent.github.io/vsc_user_docs/pdf/intro-HPC-windows-gent.pdf)
+OpenFOAM is known to significantly stress shared filesystems, since a lot of
+(small) files are generated during an OpenFOAM simulation. Shared filesystems
+are typically optimised for dealing with (a small number of) large files, and
+are usually a poor match for workloads that involve a (very) large number of
+small files.
+
+## University of Leeds
+A single OpenFOAM user has exceeded one hundred million files/directories on a
+filesystem ill suited to large numbers of files and directories.
+
+# Mitigations 
+
+## Use binary format for the fields
+`writeFormat binary`
+                                        
+## For steady-state solutions, overwrite the output at each output time
+`purgeWrite 1`
+                                        
+## Don't read dictionaries at every time-step
+`runTimeModifiable no`
+
+## Reduce the checkpoint frequency
+`writeControl / writeInterval`
+                                       
+## Avoid very small time step
+Synchronisation and log file entry written per time step
+`deltaT`
+
+## Use newer features, such as collated file format (OpenFOAM &gt;= 5.0)
+Can reduce file count by a factor of 40
+
+Figures from ARCHER show an actual performance boost of 50%
+
+[Original 2017 blog post](https://openfoam.org/news/parallel-io/)
+                                        
+## If the results per individual time step are large, consider:
+`writeCompression on`
+                                        
+## For single node OpenFOAM jobs, consider using the local filesystem
+`/local`
+
+Notes for this are on the [ARC website](https://arc.leeds.ac.uk/using-the-systems/why-have-a-scheduler/tmp-and-scratch/)
+
+# What is ARC4?
+
+- In the current guise, it's ARC3 but faster
+  - 1.2 Petabytes of Lustre storage ~11Gbytes/sec
+  - Infiniband EDR 100Gbit networking
+  - Xeon Gold 6138 CPU (Sky Lake)
+  - 149 standard nodes (40 cores, 192Gbytes RAM)
+  - 2 high memory nodes (40 cores, 768Gbytes RAM)
+  - 3 GPU nodes (4 x Nvidia V100)
+                                
+## Software
+- A subset of what's been installed on ARC3
+- More modules can be installed on request
+- Does not contain python-libs from ARC3
+                                
+## Who's paid for what
+                                        
+- In a sense, not that imporant
+- Stakeholder agreement
+- Each faculty paid a sum they chose
+
+{{< include _end.qmd >}}
